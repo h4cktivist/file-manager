@@ -1,5 +1,6 @@
 import os from 'os';
 import fs from 'fs';
+import path from 'path';
 
 export const listDir = (path) => {
     let filesData = [];
@@ -21,4 +22,13 @@ export const listDir = (path) => {
             console.table(filesData);
         }
     });
+};
+
+export const changeDir = (toPath) => {
+    try {
+        process.chdir(path.resolve(toPath));
+    }
+    catch {
+        console.log('Operation failed');
+    }
 };

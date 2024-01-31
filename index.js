@@ -1,14 +1,14 @@
 import readline from 'readline';
 import os from 'os';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
-import { listDir } from './utils/nwd_utils.mjs'
+import { listDir, changeDir } from './utils/nwd_utils.mjs'
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
 console.log(`Welcome to the File Manager, ${username}!`);
 
-const workingDir = os.homedir();
-console.log(`You are currently in ${workingDir}`);
+process.chdir(os.homedir());
+console.log(`You are currently in ${process.cwd()}`);
 
 const readlineStream = readline.createInterface({
     input: process.stdin,
@@ -22,8 +22,12 @@ readlineStream.on('line', (input) => {
     const operation = args[0];
 
     switch (operation) {
+        case 'cd':
+            const destPath = args[1];
+            changeDir(destPath);
+            break;
         case 'ls':
-            listDir(workingDir);
+            listDir(process.cwd());
             break;
         case 'os':
             switch (args[1]) {
@@ -53,7 +57,7 @@ readlineStream.on('line', (input) => {
             console.log('Invalid input');
     }
     console.log('----------------');
-    console.log(`You are currently in ${workingDir}`);
+    console.log(`You are currently in ${process.cwd()}`);
     readlineStream.prompt();
 });
 
