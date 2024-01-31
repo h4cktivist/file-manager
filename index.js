@@ -1,6 +1,6 @@
 import readline from 'readline';
 import os from 'os';
-import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.js';
+import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
@@ -41,6 +41,8 @@ readlineStream.on('line', (input) => {
                 default:
                     console.log('Invalid input');
             }
+            console.log('----------------');
+            console.log(`You are currently in ${workingDir}`);
             break;
         case '.exit':
             readlineStream.close();
