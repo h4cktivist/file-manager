@@ -1,7 +1,7 @@
 import readline from 'readline';
 import os from 'os';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
-import { listDir, changeDir } from './utils/nwd_utils.mjs'
+import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs'
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
@@ -22,6 +22,9 @@ readlineStream.on('line', (input) => {
     const operation = args[0];
 
     switch (operation) {
+        case 'up':
+            goUp();
+            break;
         case 'cd':
             const destPath = args[1];
             changeDir(destPath);

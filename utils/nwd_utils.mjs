@@ -32,3 +32,12 @@ export const changeDir = (toPath) => {
         console.log('Operation failed');
     }
 };
+
+export const goUp = () => {
+    try {
+        process.chdir(path.join(process.cwd(), '../'));
+    }
+    catch {
+        console.log('Operation failed');
+    }
+};
