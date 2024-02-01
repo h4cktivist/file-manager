@@ -15,7 +15,6 @@ export const createFile = async (filename) => {
     const filePath = path.join(process.cwd(), filename);
     fs.writeFile(filePath, '', (err) => {
         if (err) console.log('Operation failed');
-        else console.log('File was successfully created!');
     });
 };
 

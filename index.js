@@ -3,6 +3,7 @@ import os from 'os';
 import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs';
 import { readFile, createFile, renameFile, copyFile, moveFile, removeFile } from './utils/files_utils.mjs';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
+import { calculateHash } from './utils/hash.mjs'
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
@@ -70,6 +71,9 @@ readlineStream.on('line', async (input) => {
                 default:
                     console.log('Invalid input');
             }
+            break;
+        case 'hash':
+            await calculateHash(args[1]);
             break;
         case '.exit':
             readlineStream.close();
