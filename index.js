@@ -4,6 +4,7 @@ import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs';
 import { readFile, createFile, renameFile, copyFile, moveFile, removeFile } from './utils/files_utils.mjs';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
 import { calculateHash } from './utils/hash.mjs'
+import { compressFile, decompressFile } from './utils/archive_utils.mjs';
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
@@ -74,6 +75,12 @@ readlineStream.on('line', async (input) => {
             break;
         case 'hash':
             await calculateHash(args[1]);
+            break;
+        case 'compress':
+            await compressFile(args[1], args[2]);
+            break;
+        case 'decompress':
+            await decompressFile(args[1], args[2]);
             break;
         case '.exit':
             readlineStream.close();
