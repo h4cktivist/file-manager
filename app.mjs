@@ -1,13 +1,13 @@
 import readline from 'readline';
 import os from 'os';
+import { getUser } from './utils/user.mjs';
 import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs';
 import { readFile, createFile, renameFile, copyFile, moveFile, removeFile } from './utils/files_utils.mjs';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
 import { calculateHash } from './utils/hash.mjs'
 import { compressFile, decompressFile } from './utils/archive_utils.mjs';
 
-const startArgs = process.argv.slice(2);
-const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
+const username = await getUser();
 console.log(`Welcome to the File Manager, ${username}!`);
 
 process.chdir(os.homedir());
