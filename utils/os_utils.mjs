@@ -1,7 +1,7 @@
 import os from 'os';
 import * as util from 'util';
 
-export const getEOL = () => {
+export const getEOL = async () => {
     try {
         console.log(`The system EOL is ${util.inspect(os.EOL)}`);
     }
@@ -10,7 +10,7 @@ export const getEOL = () => {
     }
 };
 
-export const getCPUs = () => {
+export const getCPUs = async () => {
     try {
         const cpus = os.cpus();
         console.log(`Overall amount of CPUs is ${cpus.length}`);
@@ -23,7 +23,7 @@ export const getCPUs = () => {
     }
 };
 
-export const getHome = () => {
+export const getHome = async () => {
     try {
         console.log(`Home directory is ${os.homedir()}`);
     }
@@ -32,7 +32,7 @@ export const getHome = () => {
     }
 };
 
-export const getUsername = () => {
+export const getUsername = async () => {
     try {
         console.log(`Current system user name is ${os.userInfo().username}`);
     }
@@ -41,7 +41,7 @@ export const getUsername = () => {
     }
 };
 
-export const getArchitecture = () => {
+export const getArchitecture = async () => {
     try {
         console.log(`CPU architecture is ${os.arch()}`);
     }

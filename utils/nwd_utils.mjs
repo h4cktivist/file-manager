@@ -2,7 +2,7 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 
-export const listDir = (path) => {
+export const listDir = async (path) => {
     let filesData = [];
     fs.readdir(path, { withFileTypes: true }, (err, files) => {
         if (err) console.log('Operation failed');
@@ -24,7 +24,7 @@ export const listDir = (path) => {
     });
 };
 
-export const changeDir = (toPath) => {
+export const changeDir = async (toPath) => {
     try {
         process.chdir(path.resolve(toPath));
     }
@@ -33,7 +33,7 @@ export const changeDir = (toPath) => {
     }
 };
 
-export const goUp = () => {
+export const goUp = async () => {
     try {
         process.chdir(path.join(process.cwd(), '../'));
     }

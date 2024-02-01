@@ -1,7 +1,8 @@
 import readline from 'readline';
 import os from 'os';
+import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs';
+import { readFile, createFile, renameFile, copyFile, moveFile, removeFile } from './utils/files_utils.mjs';
 import { getEOL, getCPUs, getHome, getUsername, getArchitecture } from './utils/os_utils.mjs';
-import { listDir, changeDir, goUp } from './utils/nwd_utils.mjs'
 
 const startArgs = process.argv.slice(2);
 const username = startArgs.find(arg => arg.startsWith('--username=')).split('=')[1];
@@ -17,37 +18,54 @@ const readlineStream = readline.createInterface({
 readlineStream.setPrompt('> ');
 readlineStream.prompt();
 
-readlineStream.on('line', (input) => {
+readlineStream.on('line', async (input) => {
     const args = input.split(' ');
     const operation = args[0];
 
     switch (operation) {
         case 'up':
-            goUp();
+            await goUp();
             break;
         case 'cd':
-            const destPath = args[1];
-            changeDir(destPath);
+            await changeDir(args[1]);
             break;
         case 'ls':
-            listDir(process.cwd());
+            await listDir(process.cwd());
+            break;
+        case 'cat':
+            await readFile(args[1]);
+            break;
+        case 'add':
+            await createFile(args[1]);
+            break;
+        case 'rn':
+            await renameFile(args[1], args[2]);
+            break;
+        case 'cp':
+            await copyFile(args[1], args[2]);
+            break;
+        case 'mv':
+            await moveFile(args[1], args[2]);
+            break;
+        case 'rm':
+            await removeFile(args[1], args[2]);
             break;
         case 'os':
             switch (args[1]) {
                 case '--EOL':
-                    getEOL();
+                    await getEOL();
                     break;
                 case '--cpus':
-                    getCPUs();
+                    await getCPUs();
                     break;
                 case '--homedir':
-                    getHome();
+                    await getHome();
                     break;
                 case '--username':
-                    getUsername();
+                    await getUsername();
                     break;
                 case '--architecture':
-                    getArchitecture();
+                    await getArchitecture();
                     break;
                 default:
                     console.log('Invalid input');
