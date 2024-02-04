@@ -17,10 +17,11 @@ const readlineStream = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
-readlineStream.setPrompt('> ');
+readlineStream.setPrompt('');
 readlineStream.prompt();
 
 readlineStream.on('line', async (input) => {
+    console.log(`You are currently in ${process.cwd()}`);
     const args = input.split(' ');
     const operation = args[0];
 
@@ -88,8 +89,6 @@ readlineStream.on('line', async (input) => {
         default:
             console.log('Invalid input');
     }
-    console.log('----------------');
-    console.log(`You are currently in ${process.cwd()}`);
     readlineStream.prompt();
 });
 

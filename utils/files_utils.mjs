@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import os from "os";
 
 export const readFile = async (path) => {
     const readStream = fs.createReadStream(path);
     readStream.on('data', (chunk) => {
         process.stdout.write(chunk);
+        console.log(os.EOL);
     });
     readStream.on('error', () => {
         console.log('Operation failed');
